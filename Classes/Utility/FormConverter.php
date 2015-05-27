@@ -197,6 +197,7 @@ class FormConverter {
 		$ttContentProperties['CType'] = 'list';
 		$ttContentProperties['tstamp'] = time();
 		$ttContentProperties['pi_flexform'] = $this->createFlexForm($form, $formUid);
+		$ttContentProperties['t3_origuid'] = $form['uid'];
 		if ($form['sys_language_uid'] > 0 && !empty($this->localizationRelations['content'][$form['l18n_parent']])) {
 			$ttContentProperties['l18n_parent'] = $this->localizationRelations['content'][$form['l18n_parent']];
 		}
@@ -225,7 +226,8 @@ class FormConverter {
 			'cruser_id' => $GLOBALS['BE_USER']->user['uid'],
 			'hidden' => $form['hidden'],
 			'crdate' => time(),
-			'tstamp' => time()
+			'tstamp' => time(),
+			't3_origuid' => $form['uid'],
 		);
 		if ($form['sys_language_uid'] > 0) {
 			$formProperties['sys_language_uid'] = $form['sys_language_uid'];
@@ -268,7 +270,8 @@ class FormConverter {
 			'hidden' => $page['hidden'],
 			'tstamp' => time(),
 			'crdate' => time(),
-			'sorting' => $page['sorting']
+			'sorting' => $page['sorting'],
+			't3_origuid' => $page['uid'],
 		);
 		if ($page['sys_language_uid'] > 0) {
 			$pageProperties['sys_language_uid'] = $page['sys_language_uid'];
@@ -332,7 +335,8 @@ class FormConverter {
 			'sender_email' => $this->isSenderEmail($form, $field),
 			'sender_name' => $this->isSenderName($form, $field),
 			'tstamp' => time(),
-			'crdate' => time()
+			'crdate' => time(),
+			't3_origuid' => $field['uid'],
 		);
 		if ($field['sys_language_uid'] > 0) {
 			$fieldProperties['sys_language_uid'] = $field['sys_language_uid'];
