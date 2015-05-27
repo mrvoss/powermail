@@ -314,7 +314,7 @@ class FormConverter {
 			'pages' => $pageUid,
 			'title' => $field['title'],
 			'type' => $this->rewriteFormType($field),
-			'css' => $this->rewriteStyles($field),
+			'css' => $this->getValueIfDefaultLanguage($field, 'class'),
 			'cruser_id' => $GLOBALS['BE_USER']->user['uid'],
 			'hidden' => $field['hidden'],
 			'sorting' => $field['sorting'],
@@ -514,28 +514,6 @@ class FormConverter {
 		}
 
 		return FALSE;
-	}
-
-	/**
-	 * Reformat styles
-	 *
-	 * @param array $field
-	 * @return string
-	 */
-	protected function rewriteStyles($field) {
-		if ($field['sys_language_uid'] > 0) {
-			return '';
-		}
-
-		$styleTypes = array(
-//			'style1' => 'layout1',
-			'style2' => 'layout2',
-			'style3' => 'layout3'
-		);
-		if (array_key_exists($field['class'], $styleTypes)) {
-			return $styleTypes[$field['class']];
-		}
-		return '';
 	}
 
 	/**
