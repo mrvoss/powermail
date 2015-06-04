@@ -81,7 +81,9 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 
 			if ($this->isClientValidationEnabled()) {
 				// define where to show errors
-				$additionalAttributes['data-parsley-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
+				if (!isset($additionalAttributes['data-parsley-errors-container'])) {
+					$additionalAttributes['data-parsley-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
+				}
 				// define where to set the error class
 				$additionalAttributes['data-parsley-class-handler'] = '.powermail_fieldwrap_' . $field->getUid() . ' div:first';
 			}
