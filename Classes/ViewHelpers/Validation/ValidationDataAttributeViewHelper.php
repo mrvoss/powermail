@@ -62,13 +62,17 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 				if ($this->isClientValidationEnabled()) {
 					$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
 						'validationerror_mandatory',
-						$this->extensionName
+						$this->extensionName,
+						array($field->getTitle())
 					);
-					// overwrite error message
-					$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
-						'validationerror_mandatory_multi',
-						$this->extensionName
-					);
+					if ($iteration['total'] > 1) {
+						// overwrite error message
+						$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
+							'validationerror_mandatory_multi',
+							$this->extensionName,
+							array($field->getTitle())
+						);
+					}
 					if ($field->getType() === 'check' && $iteration['total'] > 1) {
 						$additionalAttributes['data-parsley-required'] = 'true';
 					}
@@ -83,7 +87,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 			}
 		}
 
-			// add multiple attribute to bundle checkboxes for parsley
+		// add multiple attribute to bundle checkboxes for parsley
 		if ($field->getMandatory() && $this->isClientValidationEnabled() && $field->getType() === 'check' && $iteration['total'] > 1) {
 			$additionalAttributes['data-parsley-multiple'] = $field->getMarker();
 		}
@@ -304,7 +308,8 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper {
 		if ($field->getValidation() && $this->isClientValidationEnabled()) {
 			$additionalAttributes['data-parsley-error-message'] = LocalizationUtility::translate(
 				'validationerror_validation.' . $field->getValidation(),
-				$this->extensionName
+				$this->extensionName,
+				array($field->getTitle())
 			);
 		}
 	}

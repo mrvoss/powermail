@@ -79,7 +79,8 @@ class AbstractValidationViewHelper extends AbstractViewHelper {
 			if ($this->isClientValidationEnabled()) {
 				$additionalAttributes['data-parsley-required-message'] = LocalizationUtility::translate(
 					'validationerror_mandatory',
-					$this->extensionName
+					$this->extensionName,
+					array($field->getTitle())
 				);
 				$additionalAttributes['data-parsley-trigger'] = 'change';
 			}

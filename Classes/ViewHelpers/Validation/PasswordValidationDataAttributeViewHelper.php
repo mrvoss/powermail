@@ -28,7 +28,8 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
 			$additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
 			$additionalAttributes['data-parsley-equalto-message'] = LocalizationUtility::translate(
 				'validationerror_password',
-				$this->extensionName
+				$this->extensionName,
+				array($field->getTitle())
 			);
 		}
 
